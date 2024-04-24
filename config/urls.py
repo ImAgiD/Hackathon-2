@@ -32,6 +32,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('account/',include('account.urls')),
     path('admin/', admin.site.urls),
     path('cars/', include('my_cars.urls')),  # Добавляем URL-шаблоны из my_cars.urls
     path('docs/', schema_view.with_ui('swagger')),
