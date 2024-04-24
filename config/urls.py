@@ -24,8 +24,8 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Python 33 API",
-        description="makers bootcamp",
+        title="Python 33",
+        description="schema_desc_cars",
         default_version="v1",
     ),
     public=True
