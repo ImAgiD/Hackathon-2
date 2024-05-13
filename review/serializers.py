@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import Comment
+from .models import Comment, Favorite
 
 class CommentSerilalizer(ModelSerializer):
     class Meta:
@@ -12,4 +12,15 @@ class CommentSerilalizer(ModelSerializer):
         super().validate(attrs)
         request = self.context.get('request')
         attrs['user'] = request.user
+        return attrs
+    
+class FavoriteSerializer(ModelSerializer):
+    class Meta:
+        model=Favorite
+        exclude=['user']
+
+    def validate(self, attrs):
+        super().validate(attrs)
+        request=self.context.get('request')
+        attrs['user']=request.user 
         return attrs

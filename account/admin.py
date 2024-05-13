@@ -4,13 +4,10 @@ from .models import User
 
 User = get_user_model()
 
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('first_name','last_name','email')
+    list_filter = ('is_active', )
+    search_fields = ('email', )
+
 admin.site.register(User)
-# Register your models here.
-
-
-
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = ('first_name','last_name','email')
-#     list_filter=('created_at',)
-#     search_fields=('title',)
-

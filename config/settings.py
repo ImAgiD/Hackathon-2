@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-from decouple import config
+from typing  import Any, Dict
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,9 +48,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     
     #apps
-    # 'account',
+    'account',
     'my_cars',
     'review',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.User'
 
 ROOT_URLCONF = 'config.urls'
 
@@ -146,12 +149,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = config('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
 
 REST_FRAMEWORK = {
@@ -162,7 +165,6 @@ REST_FRAMEWORK = {
 }
 
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=700000),
@@ -178,3 +180,26 @@ SWAGGER_SETTINGS = {
         }
     }
 } 
+
+JAZZMIN_SETTINGS: Dict[str, Any] = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Aigerim",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Cars",
+    
+   "topmenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+
+        # external url that opens in a new window (Permissions can be added)
+        {"name": "Support", "url": "https://github.com/ImAgiD", "new_window": True},
+
+        # model admin to link to (Permissions checked against model)
+        {"model": "auth.User"},
+
+        # App with dropdown menu to all its models pages (Permissions checked against models)
+        {"app": "books"},
+    ],
+}

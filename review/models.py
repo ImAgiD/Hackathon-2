@@ -16,4 +16,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)    
     updated_at = models.DateTimeField(auto_now=True)
     
-  
+    
+class Favorite(models.Model):
+    user = models.ForeignKey(User, related_name='favorites', on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, related_name='favorites',  on_delete=models.CASCADE)
+    created_at= models.DateTimeField(auto_now_add=True)

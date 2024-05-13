@@ -8,8 +8,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 from my_cars.models import Car
-from .models import Like, Comment
-from .serializers import CommentSerilalizer
+from .models import Like, Comment, Favorite
+from .serializers import CommentSerilalizer, FavoriteSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -38,3 +38,14 @@ class CommentViewSet(ModelViewSet):
         elif self.action in ['update', 'partial_update']:
             self.permission_classes = [IsOwnerOrReadOnly]
         return [permission() for permission in self.permission_classes]    
+    
+class FavoriteViewSet(ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer  
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            self.permission_classes = [IsAuthenticated]  # Доступ только зарегистрированным пользователям
+        elif self.action in ['create', 'update', 'partial_update', 'destroy']:
+            self.permission_classes = [IsOwnerOrReadOnly]  # Доступ только владельцам избранных товаров
+        return [permission() for permission in self.permission_classes]

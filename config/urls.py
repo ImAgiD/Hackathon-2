@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 schema_view = get_schema_view(
     openapi.Info(
         title="Python 33",
-        description="schema_desc_cars",
+        description="my_cars",
         default_version="v1",
     ),
     public=True
@@ -37,6 +37,7 @@ urlpatterns = [
     path('cars/', include('my_cars.urls')),  # Добавляем URL-шаблоны из my_cars.urls
     path('docs/', schema_view.with_ui('swagger')),
     path('review/', include('review.urls')),
+    path('order/', include('order.urls')),
 
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Добавляем обработку статических файлов

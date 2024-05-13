@@ -9,5 +9,5 @@ def send_activation_code(email,activation_code):
     msg_html = render_to_string('email.html',context)
     message = strip_tags(msg_html)
     send_mail(
-        'Account Activation', message, 'admin@gmail.com', [email], html_message=msg_html, fail_silently=False
+        'Account Activation', message, 'aigerim@gmail.com', [email], html_message=msg_html, fail_silently=False
     )
